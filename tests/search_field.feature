@@ -7,7 +7,7 @@ Feature: Search field
   Scenario Outline: Search performed by click:
     When UI: Input <user_name> into search field
     And UI: Click Search button
-    And API: send get request to user_name repo
+    And API: send get request to <user_name> repo
     And API: verify status code is 200
     Then Verify repos field values
 
@@ -17,12 +17,16 @@ Feature: Search field
       | ab054       |
       | roboflow    |
 
-  Scenario: Search performed by Enter key:
-    When UI: Input user_name into search field
+  Scenario Outline: Search performed by Enter key:
+    When UI: Input <user_name> into search field
     And UI: Push Enter key
-    And API: send get request to user_name repo
+    And API: send get request to <user_name> repo
     And API: verify status code is 200
     Then Verify repos field values
+
+    Examples:
+      | user_name   |
+      | dvlad7909   |
 
   Scenario Outline: Not valid search data
     When UI: Input <not_valid_data> into search field
@@ -33,4 +37,4 @@ Feature: Search field
     Examples:
       | not_valid_data  |
       | #$%87^          |
-      | #$%87^bla       |
+#      | #$%87^bla       |

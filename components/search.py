@@ -1,10 +1,11 @@
 import selenium
-from base import Base
+from components.base import Base
 
 
 class Search(Base):
-    search_field_xpath = "// input[ @ data - testid = 'search-bar']"
+    search_field_xpath = "//input[@data-testid='search-bar']"
     search_button_xpath = "//button[@type='submit']"
+
     def search_field_input(self, user_name):
         self.input_into_text_field(user_name, self.search_field_xpath)
 
