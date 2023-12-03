@@ -36,3 +36,11 @@ class Base:
     def get_text(self, locator):
         element = WebDriverWait(self.driver, 1).until(EC.visibility_of_element_located((By.XPATH, locator)))
         return element.text
+
+    def get_elements(self, locator):
+        elements = self.driver.find_elements(By.XPATH, locator)
+        return elements
+
+    def get_page_source(self):
+        content = self.driver.page_source
+        return content

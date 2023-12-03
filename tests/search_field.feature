@@ -1,4 +1,4 @@
-# Created by dvlad at 11/30/2023
+# Created by D. Vladimirov at 11/30/2023
 Feature: Search field
 
   Background: Test prerequisites
@@ -30,11 +30,11 @@ Feature: Search field
 
   Scenario Outline: Not valid search data
     When UI: Input <not_valid_data> into search field
-    And API: send get request to user_name repo
+    And API: send get request to <not_valid_data> repo
     And API: verify status code is 404
     Then Varify empty results: no article element on the page
 
     Examples:
       | not_valid_data  |
       | #$%87^          |
-#      | #$%87^bla       |
+      | #$%87^bla       |
