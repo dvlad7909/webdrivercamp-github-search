@@ -44,3 +44,6 @@ class Base:
     def get_page_source(self):
         content = self.driver.page_source
         return content
+
+    def page_refresh(self):
+        self.driver.refresh()

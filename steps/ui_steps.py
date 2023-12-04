@@ -3,8 +3,6 @@ from selenium.webdriver import Keys
 
 from components.search import Search
 
-# use_step_matcher("re")
-
 
 @step('Navigate to {url}')
 def step_impl(context, url):
@@ -25,3 +23,8 @@ def step_impl(context):
 @step("UI: Click Search button")
 def step_impl(context):
     context.search.click_search_button()
+
+
+@step("UI: refresh page")
+def step_impl(context):
+    context.search.page_refresh()
