@@ -43,3 +43,17 @@ Feature: Summary fields
       | dmitriivlad |
       # | ab054       |
       |stas00       |
+
+  Scenario Outline: Verify number of following UI vs API
+    When UI: Input <user_name> into search field
+    And UI: Click Search button
+    And API: send get request to <user_name>
+    And API: verify status code is 200
+    Then Verify following field values
+
+    Examples:
+      | user_name   |
+      | dvlad7909   |
+      | dmitriivlad |
+      # | ab054       |
+      |stas00       |

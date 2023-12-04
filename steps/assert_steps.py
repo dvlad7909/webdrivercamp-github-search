@@ -17,6 +17,9 @@ def step_impl(context, field):
         case 'followers':
             ui_repo_number = context.search.get_text(Locators.number_of_followers)
             expression = parse(JsonLocators.number_of_followers_json)
+        case 'following':
+            ui_repo_number = context.search.get_text(Locators.number_of_following)
+            expression = parse(JsonLocators.number_of_following)
 
     file_name = JsonLocators.file_name
     with open(file_name, 'r') as json_file:
