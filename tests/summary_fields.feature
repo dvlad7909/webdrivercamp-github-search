@@ -16,8 +16,9 @@ Feature: Summary fields
       | dvlad7909   |
       | dmitriivlad |
       # | ab054       |
+      # |stas00       |
 
-  Scenario: Verify data is updated on page refresh
+  Scenario: Verify repos data is updated on page refresh
     When UI: Input dvlad7909 into search field
     And UI: Click Search button
     And API: send get request to dvlad7909
@@ -28,3 +29,17 @@ Feature: Summary fields
     And API: verify status code is 200
     And UI: refresh page
     Then Verify repos field values
+
+  Scenario Outline: Verify number of followers UI vs API
+    When UI: Input <user_name> into search field
+    And UI: Click Search button
+    And API: send get request to <user_name>
+    And API: verify status code is 200
+    Then Verify followers field values
+
+    Examples:
+      | user_name   |
+      | dvlad7909   |
+      | dmitriivlad |
+      # | ab054       |
+      |stas00       |
