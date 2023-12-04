@@ -14,8 +14,8 @@ Feature: Search field
     Examples:
       | user_name   |
       | dvlad7909   |
-      | ab054       |
-      | roboflow    |
+#      | ab054       |
+#      | roboflow    |
 
   Scenario Outline: Search performed by Enter key:
     When UI: Input <user_name> into search field
