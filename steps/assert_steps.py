@@ -13,7 +13,10 @@ def step_impl(context, field):
     match field:
         case 'repos':
             ui_repo_number = context.search.get_text(Locators.number_of_repos)
-            expression = parse("$.public_repos")
+            expression = parse(JsonLocators.number_of_repos_json)
+        case 'followers':
+            ui_repo_number = context.search.get_text(Locators.number_of_followers)
+            expression = parse(JsonLocators.number_of_followers_json)
 
     file_name = JsonLocators.file_name
     with open(file_name, 'r') as json_file:

@@ -15,7 +15,7 @@ def after_feature(context, feature):
 
 def after_scenario(context, scenario):
     match scenario.name:
-        case "Verify data is updated on page refresh":
+        case "Verify repos data is updated on page refresh":
             token = f'token {components.git_token.GitToken.git_token}'
             header_content = {'Authorization': token}
             owner = 'dvlad7909'
