@@ -2,24 +2,29 @@ from behave import *
 from jsonpath_ng import jsonpath, parse
 import json
 import requests
+
+from components.search import Search
 from components.xpath_locators import Locators
 from components.json_locators import JsonLocators
 
 
 @then("Verify {field} field values")
 def step_impl(context, field):
-    ui_repo_number = None
+    ui_numbers = None
     expression = None
     match field:
         case 'repos':
-            ui_repo_number = context.search.get_text(Locators.number_of_repos)
+            ui_numbers = Search(context.driver).get_text(Locators.number_of_repos)
             expression = parse(JsonLocators.number_of_repos_json)
         case 'followers':
-            ui_repo_number = context.search.get_text(Locators.number_of_followers)
+            ui_numbers = Search(context.driver).get_text(Locators.number_of_followers)
             expression = parse(JsonLocators.number_of_followers_json)
         case 'following':
-            ui_repo_number = context.search.get_text(Locators.number_of_following)
-            expression = parse(JsonLocators.number_of_following)
+            ui_numbers = Search(context.driver).get_text(Locators.number_of_following)
+            expression = parse(JsonLocators.number_of_following_json)
+        case 'gists':
+            ui_numbers = Search(context.driver).get_text(Locators.number_of_gists)
+            expression = parse(JsonLocators.number_of_gists_json)
 
     file_name = JsonLocators.file_name
     with open(file_name, 'r') as json_file:
@@ -27,9 +32,9 @@ def step_impl(context, field):
     # JSONPath expression
 
     # Apply the expression to the JSON data
-    api_repo_number = [match.value for match in expression.find(json_data)][0]
+    api_numbers = [match.value for match in expression.find(json_data)][0]
 
-    assert str(api_repo_number) == ui_repo_number
+    assert str(api_numbers) == ui_numbers
 
 
 @step("API: verify status code is {status_code}")

@@ -30,3 +30,23 @@ def step_impl(context, user_name):
     }
 
     context.response = requests.post(repo_url, headers=header_content, json=payload)
+
+
+@step("API: send post request to dvlad7909 to add 1 more gist")
+def step_impl(context):
+    gists_url = 'https://api.github.com/gists'
+    token = f'token {components.git_token.GitToken.gists_token}'
+    header_content = {'Authorization': token}
+    params = {'scope': 'gist'}
+    payload = {
+        'description': 'Gist created with api',
+        'public': True,
+        'files': {
+            'filename.txt': {
+                'content': 'My API Gist'
+            }
+        }
+    }
+
+    context.response = requests.post(gists_url, headers=header_content, params=params, data=json.dumps(payload))
+    context.feature.gist_id = context.response.json()['id']
