@@ -6,7 +6,7 @@ import components.git_token
 def before_feature(context, feature):
     context.driver = webdriver.Chrome()
     context.driver.maximize_window()
-    context.driver.implicitly_wait(10)
+    context.driver.implicitly_wait(2)
 
 
 def after_feature(context, feature):
@@ -30,6 +30,13 @@ def after_scenario(context, scenario):
             url = f'https://api.github.com/gists/{g_id}'
             header_content = {'Authorization': token}
             response = requests.delete(url, headers=header_content)
+
+        case "Verify followers data is updated on page refresh" | "Verify following data is updated on page refresh" | "Verify followers data is updated on page refresh":
+            username = 'dmitriivlad'
+            gists_url = f'https://api.github.com/user/following/{username}'
+            token = f'token {components.git_token.GitToken.follow_token}'
+            header_content = {'Authorization': token}
+            response = requests.delete(gists_url, headers=header_content)
 
         case _:
             pass

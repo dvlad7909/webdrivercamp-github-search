@@ -83,3 +83,28 @@ Feature: Summary fields
     And API: verify status code is 200
     And UI: refresh page
     Then Verify gists field values
+
+
+Scenario: Verify followers data is updated on page refresh
+    When UI: Input dmitriivlad into search field
+    And UI: Click Search button
+    And API: send get request to dmitriivlad
+    And API: verify status code is 200
+    And API: add dvlad7909 follows dmitriivlad
+    And API: verify status code is 204
+    And API: send get request to dmitriivlad
+    And API: verify status code is 200
+    And UI: refresh page
+    Then Verify followers field values
+
+Scenario: Verify following data is updated on page refresh
+    When UI: Input dvlad7909 into search field
+    And UI: Click Search button
+    And API: send get request to dvlad7909
+    And API: verify status code is 200
+    And API: add dvlad7909 follows dmitriivlad
+    And API: verify status code is 204
+    And API: send get request to dvlad7909
+    And API: verify status code is 200
+    And UI: refresh page
+    Then Verify following field values

@@ -50,3 +50,13 @@ def step_impl(context):
 
     context.response = requests.post(gists_url, headers=header_content, params=params, data=json.dumps(payload))
     context.feature.gist_id = context.response.json()['id']
+
+
+@step("API: add dvlad7909 follows dmitriivlad")
+def step_impl(context):
+    username = 'dmitriivlad'
+    gists_url = f'https://api.github.com/user/following/{username}'
+    token = f'token {components.git_token.GitToken.follow_token}'
+    header_content = {'Authorization': token}
+
+    context.response = requests.put(gists_url, headers=header_content)
