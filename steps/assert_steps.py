@@ -1,3 +1,5 @@
+import time
+
 from behave import *
 from jsonpath_ng import jsonpath, parse
 import json
@@ -57,3 +59,48 @@ def step_impl(context):
     #
     # # Apply the expression to the JSON data
     # matches = [match.value for match in jsonpath(json_data, expression)]
+
+
+@then("Verify {parameter} of followers")
+def step_impl(context, parameter):
+    followers_xpath = Locators.followers_list
+    time.sleep(0.5)
+    items = context.search.get_elements(followers_xpath)
+    item_features = []
+    item_list = []
+    item_list.extend(i for i in items)
+    for i in range(1, len(item_list) + 1):
+        name_xpath = f"{followers_xpath}[{str(i)}]//child::h4"
+        link_xpath = f"{followers_xpath}[{str(i)}]//child::a"
+        item_name = context.search.get_text(name_xpath)
+        item_link = context.search.get_text(link_xpath)
+        item_features.append({"name": item_name, "link": item_link})
+
+    with open('json_response.json', 'r') as json_file:
+        json_data = json.load(json_file)
+    expression = parse(JsonLocators.followers_logins_json)
+    logins = [match.value.lower() for match in expression.find(json_data)]
+    expression = parse(JsonLocators.followers_links_json)
+    links = [match.value.lower() for match in expression.find(json_data)]
+
+    match parameter:
+        case 'number':
+            number_of_followers_ui = len(item_features)
+            number_of_followers_api = len(logins)
+            assert number_of_followers_ui == number_of_followers_api
+
+        case 'logins':
+            logins_ui = []
+            for i in item_features:
+                logins_ui.append(i['name'].lower())
+            logins_api = logins
+            assert logins_api == logins_ui
+
+        case 'links':
+            links_ui = []
+            for i in item_features:
+                links_ui.append(i['link'].lower())
+            links_api = links
+            print(links_api)
+            print(links_ui)
+            assert links_api == links_ui

@@ -2,20 +2,29 @@
 
 Feature: Followers component
 
+  Background: Test prerequisites
+    Given Navigate to https://gh-users-search.netlify.app/
+
   Scenario Outline: Verify max number of followers UI vs API
     When UI: Input <user_name> into search field
     And UI: Click Search button
+    And API: send get request to <user_name>/followers?per_page=100
+    And API: verify status code is 200
+    Then Verify number of followers
 
     Examples:
       | user_name   |
-      | dvlad7909   |
-      | dmitriivlad |
-      # | ab054       |
-      |stas00       |
+    #  | dvlad7909   |
+    #  | dmitriivlad |
+      | ab054       |
+    #  |stas00       |
 
   Scenario Outline: Verify each follower has user name UI vs API
     When UI: Input <user_name> into search field
     And UI: Click Search button
+    And API: send get request to <user_name>/followers?per_page=100
+    And API: verify status code is 200
+    Then Verify logins of followers
 
     Examples:
       | user_name   |
@@ -27,12 +36,15 @@ Feature: Followers component
   Scenario Outline: Verify each follower has user link UI vs API
     When UI: Input <user_name> into search field
     And UI: Click Search button
+    And API: send get request to <user_name>/followers?per_page=100
+    And API: verify status code is 200
+    Then Verify links of followers
 
     Examples:
       | user_name   |
       | dvlad7909   |
       | dmitriivlad |
-      # | ab054       |
+      | ab054       |
       |stas00       |
 
   Scenario Outline: Verify each link redirects to correspondent url UI vs API
