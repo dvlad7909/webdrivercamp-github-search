@@ -61,6 +61,7 @@ Feature: Followers component
       # | ab054       |
       |stas00       |
 
+  @del_following
   Scenario: Verify followers data is updated on page refresh
     When UI: Input dmitriivlad into search field
     And UI: Click Search button

@@ -18,6 +18,7 @@ Feature: Summary fields
       # | ab054       |
       # |stas00       |
 
+  @del_repo
   Scenario: Verify repos data is updated on page refresh
     When UI: Input dvlad7909 into search field
     And UI: Click Search button
@@ -42,7 +43,7 @@ Feature: Summary fields
       | dvlad7909   |
       | dmitriivlad |
       # | ab054       |
-      |stas00       |
+      # |stas00       |
 
   Scenario Outline: Verify number of following UI vs API
     When UI: Input <user_name> into search field
@@ -56,7 +57,7 @@ Feature: Summary fields
       | dvlad7909   |
       | dmitriivlad |
       # | ab054       |
-      |stas00       |
+      # |stas00       |
 
   Scenario Outline: Verify number of gists UI vs API
     When UI: Input <user_name> into search field
@@ -70,8 +71,9 @@ Feature: Summary fields
       | dvlad7909   |
       | dmitriivlad |
       # | ab054       |
-      |stas00       |
+      # |stas00       |
 
+  @del_gist
   Scenario: Verify gists data is updated on page refresh
     When UI: Input dvlad7909 into search field
     And UI: Click Search button
@@ -84,7 +86,7 @@ Feature: Summary fields
     And UI: refresh page
     Then Verify gists field values
 
-
+@del_following
 Scenario: Verify followers data is updated on page refresh
     When UI: Input dmitriivlad into search field
     And UI: Click Search button
@@ -97,6 +99,7 @@ Scenario: Verify followers data is updated on page refresh
     And UI: refresh page
     Then Verify followers field values
 
+@del_following
 Scenario: Verify following data is updated on page refresh
     When UI: Input dvlad7909 into search field
     And UI: Click Search button
