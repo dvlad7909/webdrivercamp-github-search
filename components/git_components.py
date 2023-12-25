@@ -1,5 +1,5 @@
 import requests
-import components.git_token
+import components.git_token_and_user
 
 
 class GitComponents:

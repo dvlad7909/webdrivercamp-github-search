@@ -2,7 +2,7 @@ from behave import *
 import json
 import requests
 
-import components.git_token
+import components.git_token_and_user
 from components.json_locators import JsonLocators
 
 
