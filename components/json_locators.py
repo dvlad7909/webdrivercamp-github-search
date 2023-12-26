@@ -8,5 +8,5 @@ class JsonLocators:
     followers_links_json = "$[*].html_url"
 
     all_repos = "$.items"
-    number_of_repos = "$..owner.login" # "$.total_count"
-    owners_logins = "$..owner.login"
+    number_of_repos = "$..login"
+    owners_logins = "$..login"

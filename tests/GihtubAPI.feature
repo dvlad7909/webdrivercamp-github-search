@@ -1,4 +1,5 @@
 # Created by dvlad at 12/19/2023
+@no_browser
 Feature: GitHub API
   # Enter feature description here
 
@@ -14,12 +15,12 @@ Feature: GitHub API
     When Send GET request with authentication to https://api.github.com/user/repos
     Then Verify response value
       | status code | 200 |
-      | No of Repos | 11  |
+      | No of Repos | 13  |
 
   Scenario: Create Gist
     Given Load payload from gist_payload.json file with updated values
-      | $.description | Gist created with api 2 |
-      | $.public      | true                    |
+      | description | Gist created with api 2 |
+      | public      | true                    |
     When Send POST request with authentication to https://api.github.com/gists
       | scope | gist |
     And Save gist id
@@ -33,9 +34,9 @@ Feature: GitHub API
 
   Scenario: Create Repo
     Given Load payload from repo_payload.json file with updated values
-      | $.name     | repo-created-with-api |
-      | $.private  | true                  |
-      | $.has_wiki | false                 |
+      | name     | repo-created-with-api |
+      | private  | true                  |
+      | has_wiki | false                 |
     When Send POST request with authentication to https://api.github.com/user/repos
     Then Verify response value
       | status code | 201 |
