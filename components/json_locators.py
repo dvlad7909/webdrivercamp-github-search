@@ -6,3 +6,7 @@ class JsonLocators:
     number_of_gists_json = "public_gists"
     followers_logins_json = "$[*].login"
     followers_links_json = "$[*].html_url"
+
+    all_repos = "$.items"
+    number_of_repos = "$..login"
+    owners_logins = "$..login"
